@@ -34,8 +34,8 @@ RUN wget --quiet --output-document=platform-tools.zip https://dl.google.com/andr
 RUN unzip -d android-sdk-linux platform-tools.zip
 
 # In this step, we set the variable ANDROID_HOME to the path of the Android SDK
-RUN export ANDROID_HOME=$PWD/android-sdk-linux
-RUN export PATH=$PATH:$PWD/android-sdk-linux/cmdline-tools/latest/bin:$PWD/android-sdk-linux/platform-tools/
+RUN export ANDROID_HOME=/usr/lib/android-sdk-linux
+RUN export PATH=$PATH:/usr/lib/android-sdk-linux/cmdline-tools/latest/bin:/usr/lib/android-sdk-linux/platform-tools/
 
 RUN echo y | sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
 RUN echo y | sdkmanager "platform-tools" >/dev/null
