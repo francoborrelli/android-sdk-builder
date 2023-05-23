@@ -1,0 +1,28 @@
+image: openjdk:11-jdk
+
+variables:
+  TAG: '11-jdk'
+  BASE_IMAGE: 'openjdk:11-jdk'
+  ANDROID_COMPILE_SDK: '33'
+  ANDROID_BUILD_TOOLS: '33.0.0'
+  ANDROID_SDK_TOOLS: '9477386_latest'
+
+stages:
+  - build
+
+build:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: build
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker image build --build-arg BASE_IMAGE=${BASE_IMAGE} \
+      --build-arg ANDROID_COMPILE_SDK=${ANDROID_COMPILE_SDK} \
+      --build-arg ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS} \
+      --build-arg ANDROID_SDK_TOOLS=${ANDROID_SDK_TOOLS} \
+      -f ./Dockerfile -t $TAG .
+    - docker image push $TAG
+  only:
+    - main
