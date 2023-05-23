@@ -1,5 +1,3 @@
-image: openjdk:11-jdk
-
 variables:
   TAG: '11-jdk'
   BASE_IMAGE: 'openjdk:11-jdk'
