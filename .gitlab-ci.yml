@@ -1,5 +1,5 @@
 variables:
-  TAG: '11-jdk'
+  TAG: $CI_REGISTRY_IMAGE:11-jdk
   BASE_IMAGE: 'openjdk:11-jdk'
   ANDROID_COMPILE_SDK: '33'
   ANDROID_BUILD_TOOLS: '33.0.0'
