@@ -45,11 +45,11 @@ ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
 ENV SDK_MANAGER_DIR = $ANDROID_HOME/cmdline-tools/latest/bin
 
-# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platform-tools" >/dev/null
-# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platform-tools" >/dev/null
+RUN echo y | $SDK_MANAGER_DIR/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
 
-# # temporarily disable checking for EPIPE error and use yes to accept all licenses
-# RUN set +o pipefail
-# RUN yes | $SDK_MANAGER_DIR/sdkmanager --licenses
-# RUN set -o pipefail
+# temporarily disable checking for EPIPE error and use yes to accept all licenses
+RUN set +o pipefail
+RUN yes | $SDK_MANAGER_DIR/sdkmanager --licenses
+RUN set -o pipefail
