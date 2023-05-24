@@ -6,6 +6,8 @@ ARG ANDROID_COMPILE_SDK='33'
 ARG ANDROID_BUILD_TOOLS='33.0.0'
 ARG ANDROID_SDK_TOOLS='9477386_latest'
 
+WORKDIR /opt
+
 # Update the package list
 RUN apt-get --quiet update --yes
 
@@ -34,8 +36,8 @@ RUN wget --quiet --output-document=platform-tools.zip https://dl.google.com/andr
 RUN unzip -d android-sdk-linux platform-tools.zip
 
 # In this step, we set the variable ANDROID_HOME to the path of the Android SDK
-RUN export ANDROID_HOME=/usr/lib/android-sdk-linux
-RUN export PATH=$PATH:/usr/lib/android-sdk-linux/cmdline-tools/latest/bin:/usr/lib/android-sdk-linux/platform-tools/
+RUN export ANDROID_HOME=/opt/android-sdk-linux
+RUN export PATH=$PATH:/opt/android-sdk-linux/cmdline-tools/latest/bin:/opt/android-sdk-linux/platform-tools/
 
 RUN echo y | sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
 RUN echo y | sdkmanager "platform-tools" >/dev/null
