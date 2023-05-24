@@ -19,8 +19,7 @@ build:
   parallel:
     matrix:
       - SDK_VERSION:
-          - 8-jdk
           - 11-jdk
-          - 17-jdk
+          - 17-jdk-slim
   only:
     - main
