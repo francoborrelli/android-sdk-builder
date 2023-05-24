@@ -14,8 +14,9 @@ build:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker image build --build-arg BASE_IMAGE=openjdk:${SDK_VERSION} --build-arg ANDROID_COMPILE_SDK=${ANDROID_COMPILE_SDK} --build-arg ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS} --build-arg ANDROID_SDK_TOOLS=${ANDROID_SDK_TOOLS} -f ./Dockerfile -t $CI_REGISTRY_IMAGE:$SDK_VERSION$ANDROID_COMPILE_SDK .
-    - docker image push $CI_REGISTRY_IMAGE:$SDK_VERSION:$ANDROID_COMPILE_SDK
+    - TAG = "${CI_REGISTRY_IMAGE}:${SDK_VERSION}:${ANDROID_COMPILE_SDK}"
+    - docker image build --build-arg BASE_IMAGE=openjdk:${SDK_VERSION} --build-arg ANDROID_COMPILE_SDK=${ANDROID_COMPILE_SDK} --build-arg ANDROID_BUILD_TOOLS=${ANDROID_BUILD_TOOLS} --build-arg ANDROID_SDK_TOOLS=${ANDROID_SDK_TOOLS} -f ./Dockerfile -t $TAG .
+    - docker image push $TAG
   parallel:
     matrix:
       - SDK_VERSION:
