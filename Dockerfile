@@ -43,7 +43,7 @@ RUN rm platform-tools.zip android-sdk.zip
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
-ENV SDK_MANAGER_DIR = $ANDROID_HOME/cmdline-tools/latest/bin
+ENV SDK_MANAGER_DIR $ANDROID_HOME/cmdline-tools/latest/bin
 
 RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
 RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platform-tools" >/dev/null
