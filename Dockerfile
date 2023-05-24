@@ -5,6 +5,7 @@ from ${BASE_IMAGE}
 ARG ANDROID_COMPILE_SDK='33'
 ARG ANDROID_BUILD_TOOLS='33.0.0'
 ARG ANDROID_SDK_TOOLS='9477386_latest'
+ARG ANDROID_HOME="/usr/local/android-sdk"
 
 WORKDIR /opt
 
@@ -36,14 +37,14 @@ RUN wget --quiet --output-document=platform-tools.zip https://dl.google.com/andr
 RUN unzip -d android-sdk-linux platform-tools.zip
 
 # In this step, we set the variable ANDROID_HOME to the path of the Android SDK
-RUN export ANDROID_HOME=/opt/android-sdk-linux
-RUN export PATH=$PATH:/opt/android-sdk-linux/cmdline-tools/latest/bin:/opt/android-sdk-linux/platform-tools/
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
-RUN echo y | sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-RUN echo y | sdkmanager "platform-tools" >/dev/null
-RUN echo y | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" >/dev/null
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
 
 # temporarily disable checking for EPIPE error and use yes to accept all licenses
 RUN set +o pipefail
-RUN yes | sdkmanager --licenses
+RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 RUN set -o pipefail
