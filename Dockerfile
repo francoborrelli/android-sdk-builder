@@ -13,7 +13,8 @@ WORKDIR /opt
 RUN apt-get --quiet update --yes
 
 # Install the required packages
-RUN apt-get --quiet install --yes wget curl tar unzip lib32stdc++6 lib32z1
+RUN apt-get --quiet install --yes wget curl tar unzip
+# lib32stdc++6 lib32z1
 
 # Add NodeSource repository
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
@@ -36,15 +37,19 @@ RUN wget --quiet --output-document=platform-tools.zip https://dl.google.com/andr
 # Unzip the platform tools
 RUN unzip -d android-sdk-linux platform-tools.zip
 
+RUN rm platform-tools.zip android-sdk.zip
+
 # In this step, we set the variable ANDROID_HOME to the path of the Android SDK
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" >/dev/null
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+ENV SDK_MANAGER_DIR = $ANDROID_HOME/cmdline-tools/latest/bin
 
-# temporarily disable checking for EPIPE error and use yes to accept all licenses
-RUN set +o pipefail
-RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-RUN set -o pipefail
+# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "platform-tools" >/dev/null
+# RUN echo y | $SDK_MANAGER_DIR/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+
+# # temporarily disable checking for EPIPE error and use yes to accept all licenses
+# RUN set +o pipefail
+# RUN yes | $SDK_MANAGER_DIR/sdkmanager --licenses
+# RUN set -o pipefail
