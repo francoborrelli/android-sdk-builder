@@ -17,7 +17,7 @@ RUN apt-get --quiet install --yes wget curl tar unzip
 # lib32stdc++6 lib32z1
 
 # Add NodeSource repository
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 # Install NodeJS
 RUN apt --quiet install --yes nodejs
 # Update NPM
