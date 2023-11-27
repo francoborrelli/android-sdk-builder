@@ -1,7 +1,8 @@
 variables:
   ANDROID_COMPILE_SDK: '33'
   ANDROID_BUILD_TOOLS: '33.0.0'
-  ANDROID_SDK_TOOLS: '9477386_latest'
+  # ANDROID_SDK_TOOLS: '9477386_latest'
+  ANDROID_SDK_TOOLS: '10406996_latest'
 
 stages:
   - build
