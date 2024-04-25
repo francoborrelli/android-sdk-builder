@@ -2,6 +2,7 @@
 
 ![Android Studio](https://img.shields.io/badge/android%20studio-346ac1?style=for-the-badge&logo=android%20studio&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitLab CI](https://img.shields.io/badge/gitlab%20ci-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)
 
 This repository contains a Dockerfile and associated configurations to facilitate the build and generation of APK files for Android applications. By using Docker containers, developers can create a standardized build environment, eliminating dependency issues and ensuring consistent builds across different systems.
 
